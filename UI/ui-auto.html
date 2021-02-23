@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UI</title>
+        <style type="text/css">
+            body {
+                font-family: "Courier New", sans-serif;
+                text-align: center;
+            }
+            .buttons {
+                font-size: 4em;
+                display: flex;
+                justify-content: center;
+            }
+            .button, .value {
+                line-height: 1;
+                padding: 2rem;
+                margin: 2rem;
+                border: medium solid;
+                min-height: 1em;
+                min-width: 1em;
+            }
+            .button {
+                cursor: pointer;
+                user-select: none;
+            }
+            .plus {
+                color: green;
+            }
+            .state {
+                font-size: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="buttons">
+            <div class="plus button">Auth Request</div>
+        </div>
+        <script>
+		var count = 0;
+		
+		function requestauth () {
+			value.innerHTML = "";
+			responseTime.innerHTML = "";
+			
+			var d = new Date();
+			startTime = d.getTime();
+		
+			websocket.send(JSON.stringify({action: 'auth'}));
+			
+			count = count + 1;
+			
+			if (count > 1000) clearInterval(interval);
+		}
+		
+		var interval = setInterval(requestauth, 2000);
+		
+		
+		
+		
+			var startTime = 0;
+		
+            var plus = document.querySelector('.plus'),
+                users = document.querySelector('.users'),
+                websocket = new WebSocket("ws://127.0.0.1:8765/");
+            plus.onclick = function (event) {
+				value.innerHTML = "";
+				responseTime.innerHTML = "";
+				
+				var d = new Date();
+				startTime = d.getTime();
+			
+                websocket.send(JSON.stringify({action: 'auth'}));
+            }
+            websocket.onmessage = function (event) {
+                data = JSON.parse(event.data);
+                switch (data.type) {
+                    case 'auth_rst':
+                        value.innerHTML = data.value;
+						var  d = new Date();
+						finalTime = d.getTime();
+						respTime = finalTime - startTime;
+						responseTime.innerHTML = respTime + " ms";
+						
+						console.log(respTime);
+						
+                        break;
+                    case 'users':
+                        users.textContent = (
+                            data.count.toString() + " user" +
+                            (data.count == 1 ? "" : "s"));
+                        break;
+                    default:
+                        console.error(
+                            "unsupported event", data);
+                }
+            };
+        </script>
+		<label id="value" style="font-size:4em;"> </label>
+		<br>
+		<label id="responseTime" style="font-size:4em;"> </label>
+    </body>
+</html>
