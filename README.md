@@ -11,6 +11,7 @@ SKID3 authentication protocol Proof of Concept with mobile device, bank server a
 * BS: bank server emulated in python with websockets communication
 * UI: user interface emulated as websockets HTML/javascript client
 * TM: trusted mobile device in Android/java with websockets communication
+* results: response time results obtained with 1000 requests, with one request each 2 seconds in a local environment with 802.11 WiFi
 
 ## References
 
