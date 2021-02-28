@@ -50,7 +50,7 @@ async def counter(websocket, path):
                 response = str(data.get("response")).replace('\n', '')
                 print("Receives: ", response)
 
-                secret = bytes('oqJV@kVfrzmQ', 'utf-8')
+                secret = bytes('oqJV@kVfrzmQ5Xyji', 'utf-8')
                 bs = "736645"
                 
                 message = bytes(challenge2+challenge+bs, 'utf-8')
