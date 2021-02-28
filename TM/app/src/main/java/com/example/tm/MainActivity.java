@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                     challenge = mainObject.getString("challenge");
 
                     try {
-                        String secret = "oqJV@kVfrzmQ";
+                        String secret = "oqJV@kVfrzmQ5Xyji";
                         String bs = "736645";
 
                         String message = randomNumber+challenge+bs;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     response2 = mainObject.getString("response2");
 
                     try {
-                        String secret = "oqJV@kVfrzmQ";
+                        String secret = "oqJV@kVfrzmQ5Xyji";
                         String tm = "454636";
 
                         String message = challenge+challenge2+tm;
